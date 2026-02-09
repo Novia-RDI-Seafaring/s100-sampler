@@ -1,0 +1,55 @@
+[network]
+api_endpoint = "http://localhost:8443"
+
+certpath = "../certs/client_cert.pem"
+keypath = "../certs/client_key.pem"
+
+[nmea]
+comport = ""
+baud = 4800
+VTG = "GPVTG"
+HDT = "HEHDT"
+GGA = "GPGGA"
+
+[nautilus]
+app_id = 0
+customer_id = 0
+nautilus_path = "../runtime"
+
+[ship]
+vessel_id = "urn:mrn:iala:ship:example:vessel"
+
+[charts]
+allApproaches = "../resources/charts/allApproaches"
+turkuHarbor = "../resources/charts/turkuHarbor"
+generalCharts = "../resources/charts/general"
+danishCharts = "../resources/charts/Danish"
+nw_alpha = 0.25
+
+[locations]
+Turku = [   "urn:mrn:iala:location:fitku:berth31",
+            "urn:mrn:iala:location:fitku:berth32",
+            "urn:mrn:iala:location:fitku:berth33",
+            "urn:mrn:iala:location:fitku:berth34",
+            "urn:mrn:iala:location:fitku:berth35",
+            "urn:mrn:iala:location:fitku:berth36",
+            "urn:mrn:iala:location:fitku:berth37",
+            "urn:mrn:iala:location:fitku:berth38",
+            "urn:mrn:iala:location:fitku:berth39",
+            "urn:mrn:iala:location:fitku:berth40",
+            "urn:mrn:iala:location:fitku:berth41"]
+Naantali = [
+            "urn:mrn:iala:location:finli:neste1",
+            "urn:mrn:iala:location:finli:neste2",
+            "urn:mrn:iala:location:finli:neste3",
+            "urn:mrn:iala:location:finli:berth15",
+            "urn:mrn:iala:location:finli:berth16",
+            "urn:mrn:iala:location:finli:berth17",
+            "urn:mrn:iala:location:finli:berth20",
+            "urn:mrn:iala:location:finli:berth22",
+            "urn:mrn:iala:location:finli:berth23",
+            "urn:mrn:iala:location:finli:berth24",
+            "urn:mrn:iala:location:finli:berth25",
+            "urn:mrn:iala:location:finli:berth26",
+            "urn:mrn:iala:location:finli:berth27",
+            "urn:mrn:iala:location:finli:anch:rajakari"]

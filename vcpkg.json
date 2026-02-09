@@ -1,0 +1,19 @@
+{
+  "name": "s100-sampler",
+  "version-string": "0.95",
+  "dependencies": [
+    "qt5-base" ,
+    "qt5-svg",
+    "qt5-tools",
+
+    "openssl",
+    { "name": "curl", "default-features": false, "features": [ "openssl" ] },
+    "curl",
+    "sqlitecpp",
+    "pugixml",
+    "libxml2",
+    "tomlplusplus",
+    "nlohmann-json",
+    "cppcodec"
+  ]
+}

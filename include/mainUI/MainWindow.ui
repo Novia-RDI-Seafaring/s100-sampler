@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1674</width>
+    <height>949</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <widget class="QWidget" name="chartWidget">
+   <widget class="ConningWindow" name="conningBox" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1110</x>
+      <y>20</y>
+      <width>450</width>
+      <height>300</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="FloatingNotificationBox" name="notificationBox" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>420</y>
+      <width>450</width>
+      <height>300</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1674</width>
+     <height>17</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="bottomToolbar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::BottomToolBarArea</set>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>30</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>BottomToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionDayNightMode"/>
+   <addaction name="actionDisplayMode"/>
+   <addaction name="actionLockToShip"/>
+   <addaction name="actionNorthUp"/>
+   <addaction name="separator"/>
+   <addaction name="actionNWMenu"/>
+   <addaction name="actionATONMenu"/>
+   <addaction name="actionVTSMenu"/>
+   <addaction name="actionNWcolorMode"/>
+  </widget>
+  <action name="actionNWMenu">
+   <property name="text">
+    <string>NW</string>
+   </property>
+   <property name="toolTip">
+    <string>Navigational Warnings</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionVTSMenu">
+   <property name="text">
+    <string>VTS</string>
+   </property>
+   <property name="toolTip">
+    <string>VTS</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionDayNightMode">
+   <property name="text">
+    <string>DayNightMode</string>
+   </property>
+   <property name="toolTip">
+    <string>Day/Night Mode</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionDisplayMode">
+   <property name="text">
+    <string>DisplayMode</string>
+   </property>
+   <property name="iconText">
+    <string>Display Mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Change Display Mode</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionRoutePlanning">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>RoutePlanning</string>
+   </property>
+   <property name="iconText">
+    <string>Route Planning</string>
+   </property>
+   <property name="toolTip">
+    <string>Route Planning Menu</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionOverlays">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Overlays</string>
+   </property>
+   <property name="toolTip">
+    <string>Overlays, Chart settings</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionLockToShip">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>JumpToShip</string>
+   </property>
+   <property name="iconText">
+    <string>Jump To Ship</string>
+   </property>
+   <property name="toolTip">
+    <string>Center Ship</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionNavigationalTools">
+   <property name="text">
+    <string>NavigationalTools</string>
+   </property>
+   <property name="iconText">
+    <string>NavTools</string>
+   </property>
+   <property name="toolTip">
+    <string>Navtools Menu</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionAlarms">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::AppointmentNew"/>
+   </property>
+   <property name="text">
+    <string>Alarms</string>
+   </property>
+   <property name="toolTip">
+    <string>Alarm Menu</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionNorthUp">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>NorthUp</string>
+   </property>
+   <property name="toolTip">
+    <string>North Up</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionspacer">
+   <property name="text">
+    <string/>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+   <property name="shortcutVisibleInContextMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionNWcolorMode">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>NWcolorMode</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionATONMenu">
+   <property name="text">
+    <string>ATONMenu</string>
+   </property>
+   <property name="toolTip">
+    <string>Open ATON menu</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FloatingNotificationBox</class>
+   <extends>QWidget</extends>
+   <header>floatingnotificationbox.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ConningWindow</class>
+   <extends>QWidget</extends>
+   <header>floatingtoolbar.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

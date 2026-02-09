@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="12.357756mm"
+   height="5.5606103mm"
+   viewBox="0 0 12.357756 5.5606103"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="nw.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="6.5033805"
+     inkscape:cx="27.60103"
+     inkscape:cy="25.678953"
+     inkscape:window-width="2558"
+     inkscape:window-height="1386"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2712">
+      <path
+         d="M 428.16,595.72 H 519 v 27.18 h -90.84 z"
+         transform="matrix(1,0,0,-1,-456.48001,602.26001)"
+         clip-rule="evenodd"
+         id="path2712" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-135.68047,-34.22573)">
+    <g
+       id="g2712"
+       transform="matrix(0.26458333,0,0,0.26458333,-3686.1567,-44.760381)"
+       style="stroke:#666666;fill:#ececec">
+      <text
+         id="text2712"
+         xml:space="preserve"
+         transform="matrix(1.3333333,0,0,1.3333333,14442.56,319.54667)"
+         clip-path="url(#clipPath2712)"
+         style="stroke:#666666;fill:#ececec"><tspan
+           style="font-variant:normal;font-weight:700;font-size:22.02px;font-family:Arial;writing-mode:lr-tb;fill:#ececec;fill-opacity:1;fill-rule:nonzero;stroke:#666666"
+           x="0"
+           sodipodi:role="line"
+           id="tspan2712"
+           y="0">NW</tspan></text>
+    </g>
+  </g>
+</svg>

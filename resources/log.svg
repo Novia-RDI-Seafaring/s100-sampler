@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="27.463133mm"
+   height="20.063169mm"
+   viewBox="0 0 27.463133 20.063169"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm" />
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3184">
+      <path
+         d="M 415.56,178.56 H 519.18 V 241.5 H 415.56 Z"
+         transform="matrix(1.3333333,0,0,-1.3333333,15461.44,1122.56)"
+         clip-rule="evenodd"
+         id="path3184" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3178">
+      <path
+         d="M 0,0 H 30.229 V 23.105 H 0 Z"
+         id="path3178" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3179">
+      <path
+         d="M 0,0 H 30.229 V 23.105 H 0 Z"
+         id="path3179" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3180">
+      <path
+         d="M 0,0 H 30.229 V 23.105 H 0 Z"
+         id="path3180" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-168.73624,-58.638342)">
+    <g
+       id="g3177"
+       transform="matrix(0.26458333,0,0,0.26458333,-4076.6197,-153.68816)">
+      <g
+         id="g3183"
+         clip-path="url(#clipPath3184)">
+        <path
+           d="m 23.127,9.2044 h 0.297 V 3.5748 H 7.72 v 5.6296 h 8.889 L 17.498,10.39 H 7.72 v 4.444 h 12.444 l 0.889,1.185 H 7.72 v 4.741 h 15.704 v -0.889 l 2.37,3.259 H -0.27997 V 1.2044 H 25.794 V 13.353 Z M 6.5348,3.5748 H 2.0904 v 5.6296 h 4.4444 z m 0,6.8152 H 2.0904 v 4.444 h 4.4444 z m 0,5.629 H 2.0904 v 4.741 h 4.4444 z"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           transform="matrix(3.5727,0,0,-3.4624306,16045.44,882.49333)"
+           clip-path="url(#clipPath3178)"
+           id="path3181" />
+        <path
+           d="m 21.053,8.0192 8,12.4448 -2.666,1.777 -8,-12.7403 z"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           transform="matrix(3.5727,0,0,-3.4624306,16045.44,882.49333)"
+           clip-path="url(#clipPath3179)"
+           id="path3182" />
+        <path
+           d="m 17.794,8.6118 v 0 L 18.09,5.9451 20.461,6.834 Z"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           transform="matrix(3.5727,0,0,-3.4624306,16045.44,882.49333)"
+           clip-path="url(#clipPath3180)"
+           id="path3183" />
+      </g>
+    </g>
+  </g>
+</svg>
