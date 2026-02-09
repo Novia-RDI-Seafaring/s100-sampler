@@ -1,0 +1,27 @@
+server.port=8443
+
+# H2 Database Configuration (example only)
+spring.datasource.url=jdbc:h2:file:~/databases/exampleDB
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=exampleuser
+spring.datasource.password=CHANGE_ME
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+# H2 console (enable only for local development)
+spring.h2.console.enabled=true
+spring.h2.console.settings.web-allow-others=false
+spring.h2.console.path=/h2-console
+
+spring.jpa.hibernate.ddl-auto=update
+
+# TLS configuration (user must provide their own keystore)
+#server.ssl.key-store=/path/to/keystore.p12
+#server.ssl.key-store-password=CHANGE_ME
+#server.ssl.key-store-type=PKCS12
+#server.ssl.key-alias=server-key
+
+# Mutual TLS configuration (optional)
+#server.ssl.client-auth=need
+#server.ssl.trust-store=/path/to/truststore.jks
+#server.ssl.trust-store-password=CHANGE_ME
+#server.ssl.trust-store-type=JKS
