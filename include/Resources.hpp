@@ -14,6 +14,9 @@ struct Config
   std::optional<std::string> cert;
   std::optional<std::string> key;
 
+  bool verify_tls = true;
+  std::optional<std::string> ca_bundle;
+
   int app_id;
   int customer_id;
   std::optional<std::map<std::string, std::vector<std::string>>> location_map;
@@ -57,6 +60,9 @@ public:
 
       cfg_.cert = config["network"]["certpath"].value<std::string>();
       cfg_.key = config["network"]["keypath"].value<std::string>();
+
+      cfg_.verify_tls = config["network"]["verify_tls"].value_or(true);
+      cfg_.ca_bundle = config["network"]["ca_bundle"].value<std::string>();
 
       cfg_.vessel_id = config["ship"]["vessel_id"].value<std::string>();
 
