@@ -4,9 +4,22 @@
 
 The original version of the application included a licensed chart SDK (Nautilus SDK), which has been removed from this repository. As a result, parts of the source code and UI structure still reflect that original design. Despite this, the current version can be used to download S-100 data and inspect a subset of commonly used data fields.
 
-The original version can be supplied separately upon request.
+<!-- TODO: Wording pending the original developer's decision on sharing NoviaECS. -->
+The chart-enabled version used in the MaDaMe pilots, NoviaECS, depends on a commercial chart SDK and licensed chart data, and is not part of this repository. For enquiries, contact the authors.
 
-The project builds and runs on **Windows** and **Linux**.
+The project has been built and tested on **Windows**. Linux builds are not yet tested.
+
+## Documentation
+
+| Guide | Contents |
+| --- | --- |
+| [Getting started](docs/GETTING-STARTED.md) | Build, run, and a first S-124 result without credentials |
+| [External requirements](docs/EXTERNAL-REQUIREMENTS.md) | What is not in this repository (certificates, service access, datasets, schema, chart engine) and where to get it |
+| [SECOM backend](docs/SECOM-BACKEND.md) | Build and run the companion backend for S-212 |
+| [Configuration](docs/CONFIGURATION.md) | Every `config.toml` setting, and the local files the client creates |
+| [Architecture](docs/ARCHITECTURE.md) | Modules, data flows, and the S-212 exchange |
+| [Limitations and known issues](docs/LIMITATIONS.md) | Scope, security limits, known defects and workarounds |
+| [Troubleshooting](docs/TROUBLESHOOTING.md) | Common build and run errors, how likely they are, and how to fix them |
 
 ---
 
