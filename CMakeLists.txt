@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Dependencies
-find_package(Qt5 REQUIRED COMPONENTS Widgets Svg)
+find_package(Qt5 REQUIRED COMPONENTS Widgets Svg Concurrent)
 
 # Prefer PATH; also hint vcpkg bin if available
 find_program(XM_LLINT_EXECUTABLE xmllint
@@ -105,7 +105,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
   SQLiteCpp
   OpenSSL::SSL OpenSSL::Crypto CURL::libcurl
-  Qt5::Widgets Qt5::Svg
+  Qt5::Widgets Qt5::Svg Qt5::Concurrent
   pugixml::pugixml
   nlohmann_json::nlohmann_json
 )
