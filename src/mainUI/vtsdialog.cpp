@@ -79,7 +79,7 @@ VTSDialog::VTSDialog(QWidget *parent, FloatingNotificationBox *passedNotificatio
     toFromButtonGroup->button(0)->click();
     setSendingAvailability(false);
     loadVTSMessages();
-    startVTSLoop();
+    // Polling starts when an S-212 service is activated (MainWindow::onServiceChange)
 }
 
 VTSDialog::~VTSDialog()
@@ -1155,8 +1155,11 @@ void VTSDialog::updateAckStatuses()
 
 void VTSDialog::startVTSLoop()
 {
-    vtsTimer = new QTimer(this);
-    connect(vtsTimer, &QTimer::timeout, this, &VTSDialog::pullNewVTSMessages);
+    if (!vtsTimer)
+    {
+        vtsTimer = new QTimer(this);
+        connect(vtsTimer, &QTimer::timeout, this, &VTSDialog::pullNewVTSMessages);
+    }
 
     vtsTimer->start(2500); // Runs every 2.5 seconds
 }
