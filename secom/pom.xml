@@ -15,6 +15,16 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>grad</id>
+            <url>https://rnavlab.gla-rad.org/mvn/repository/grad/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- Spring Boot Starter Web -->
         <dependency>

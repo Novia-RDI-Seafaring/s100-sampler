@@ -44,36 +44,36 @@ public class SecomAck implements AcknowledgementSecomInterface {
             // Validate SECOM fields
             if (envelope.getAckType() == null) {
                 logger.error("Missing AckType in acknowledgement object");
-                response.setMessage("Missing AckType");
+                response.setResponseText("Missing AckType");
                 return response;
             }
             if (envelope.getEnvelopeCertificate() == null || envelope.getEnvelopeCertificate().isEmpty()) {
                 logger.error("Missing Envelope Certificate in acknowledgement object");
-                response.setMessage("Missing Envelope Certificate");
+                response.setResponseText("Missing Envelope Certificate");
                 return response;
             }
             if (envelope.getTransactionIdentifier() == null || Objects.equals(envelope.getTransactionIdentifier().toString(), "")) {
                 logger.error("Missing Transaction Identifier in acknowledgement object");
-                response.setMessage("Missing Transaction Identifier");
+                response.setResponseText("Missing Transaction Identifier");
                 return response;
             }
 
             if (envelope.getNackType() != null) {
                 logger.warn("Negative Acknowledgement received: " + envelope.getNackType().name());
-                response.setMessage("Negative Acknowledgement: " + envelope.getNackType().name());
+                response.setResponseText("Negative Acknowledgement: " + envelope.getNackType().name());
             } else {
-                response.setMessage("Acknowledgement successfully processed");
+                response.setResponseText("Acknowledgement successfully processed");
             }
 
             acknowledgementService.saveAcknowledgement(acknowledgementObject);
 
-            response.setMessage("Acknowledgement saved successfully");
+            response.setResponseText("Acknowledgement saved successfully");
 
             // Log successful processing
             logger.info("Acknowledgement successfully processed for transaction: " + envelope.getTransactionIdentifier());
         } catch (Exception e) {
             logger.error("Error processing acknowledgement", e);
-            response.setMessage("Error processing acknowledgement: " + e.getMessage());
+            response.setResponseText("Error processing acknowledgement: " + e.getMessage());
         }
         return response;
     }
