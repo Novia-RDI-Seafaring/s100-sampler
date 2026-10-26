@@ -153,6 +153,7 @@ public:
 
     /*!
      * \brief Performs a full update:
+     * - Reload local files when no remote services are selected
      * - Backup existing files
      * - Clear DB
      * - Pull new data
@@ -162,22 +163,21 @@ public:
     {
         std::cout << "Starting full refresh of data...\n";
 
+        if (serviceList.empty())
+        {
+            std::cout << "No remote services selected; reloading local data.\n";
+            clearDatabase();
+            featureMap.clear();
+            scanAndLoad();
+            return;
+        }
+
         auto bol = backUpData();
 
         clearDatabase();
 
         featureMap.clear();
 
-        if (serviceList.empty())
-        {
-            std::cout << "Nothing to load\n";
-            std::string errorMessage = "No services found. Assign relevant products in the MSR menu.";
-            HttpResponse emptyResponse = {"", 0};
-            S100Service emptyService = {"", "", "", "", QUrl{}, false};
-            ServiceError newError = {errorMessage, emptyResponse, emptyService};
-            emit generalError(newError);
-            return;
-        }
         try
         {
             pullAll();
