@@ -110,6 +110,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
   nlohmann_json::nlohmann_json
 )
 
+# Validate S-212 messages with the xmllint found above, not one on PATH
+target_compile_definitions(${PROJECT_NAME} PRIVATE XMLLINT_EXECUTABLE="${XM_LLINT_EXECUTABLE}")
+
 find_path(TOMLPLUSPLUS_INCLUDE_DIR NAMES toml++/toml.h toml++/toml.hpp REQUIRED)
 find_path(CPPCODEC_INCLUDE_DIRS NAMES cppcodec/base64_rfc4648.hpp REQUIRED)
 

@@ -4,6 +4,9 @@
 #include <qdebug.h>
 #include <QSvgRenderer>
 #include <QPainter>
+#include <QProcess>
+#include <filesystem>
+#include <stdexcept>
 
 VTSMessageWrapper::VTSMessageWrapper(VTSDigitalInformationMessage *newMessage, Sender vtsOrShip)
 {
@@ -202,22 +205,35 @@ void VTSMessageWrapper::writeToFile()
     std::string fullPath = "../data/VTS/" + filename;
     qDebug() << "Saving file to:" << QString::fromStdString(fullPath);
     doc.save_file(fullPath.c_str(), "  ");
-    validateXML(fullPath);
+    if (!validateXML(fullPath))
+    {
+        // Do not keep or send a message that failed schema validation
+        std::filesystem::remove(fullPath);
+        throw std::runtime_error("S-212 schema validation failed for " + filename +
+                                 ". Check that ../schemas/S212.xsd exists and xmllint is available.");
+    }
 }
-void VTSMessageWrapper::validateXML(const std::string &filePath)
+bool VTSMessageWrapper::validateXML(const std::string &filePath)
 {
-    // std::string command = "xmllint --noout --valid " + filePath;
-    std::string command = "xmllint --noout --schema ../schemas/S212.xsd " + filePath;
-    int result = std::system(command.c_str());
+#ifdef XMLLINT_EXECUTABLE
+    const QString xmllint = QStringLiteral(XMLLINT_EXECUTABLE);
+#else
+    const QString xmllint = QStringLiteral("xmllint");
+#endif
+    // Pass arguments as a list so that no shell is involved
+    const QStringList args{"--noout", "--schema", "../schemas/S212.xsd", QString::fromStdString(filePath)};
+    int result = QProcess::execute(xmllint, args);
 
     if (result == 0)
     {
         std::cout << "XML file is valid.\n";
+        return true;
     }
+    if (result < 0)
+        std::cerr << "XML validation failed: could not run " << xmllint.toStdString() << "\n";
     else
-    {
         std::cerr << "XML validation failed!\n";
-    }
+    return false;
 }
 
 std::string VTSMessageWrapper::getReferenceId()

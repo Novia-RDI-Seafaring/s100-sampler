@@ -347,7 +347,9 @@ VTSMessageWrapper *VTSDialog::writeNewMessageToFile()
     }
     catch (const std::exception &e)
     {
+        // The message is invalid or could not be written; do not store or send it
         std::cerr << "Error in writing: " << e.what() << std::endl;
+        throw;
     }
     // Step 3: Determine thread number
     try
@@ -382,7 +384,17 @@ void VTSDialog::on_newMessageButton_clicked()
     progress.show();
     QApplication::processEvents();
 
-    VTSMessageWrapper *wrapper = writeNewMessageToFile();
+    VTSMessageWrapper *wrapper = nullptr;
+    try
+    {
+        wrapper = writeNewMessageToFile();
+    }
+    catch (const std::exception &e)
+    {
+        progress.close();
+        QMessageBox::critical(this, "Message not sent", QString::fromStdString(e.what()));
+        return;
+    }
     // Run in another thread
 
     bool somethingHappened = false;
