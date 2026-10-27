@@ -139,3 +139,15 @@ MSR provider endpoints are currently hard-coded; if different endpoints are requ
 * A generic SECOM-compatible endpoint will **not** be sufficient.
 
 The `secom` exists to provide the backend behavior expected by the ECS application.
+
+---
+
+## Citing and authors
+
+If you use `s100-sampler` in research, please cite it using [CITATION.cff](CITATION.cff) (GitHub shows it as **Cite this repository**). The authors and their contributions are listed in [CONTRIBUTORS.md](CONTRIBUTORS.md).
+
+## License
+
+`s100-sampler` is released under the [MIT License](LICENSE.txt). Copyright (c) 2024-2026 Novia University of Applied Sciences.
+
+The licence covers this repository only. The chart SDK, chart data and service credentials described in [External requirements](docs/EXTERNAL-REQUIREMENTS.md) are not part of it and have their own terms.

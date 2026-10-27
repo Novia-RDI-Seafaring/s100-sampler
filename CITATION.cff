@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+type: software
+title: "s100-sampler: a client for S-124, S-125 and S-212 maritime services"
+abstract: >-
+  s100-sampler is a desktop client for testing S-100 family maritime services.
+  It retrieves S-124 navigational warnings and S-125 aids-to-navigation data
+  through SECOM, and exchanges S-212 messages with a vessel traffic service
+  through a companion SECOM backend. It is the open-source, chart-free part of
+  NoviaECS, developed at Novia University of Applied Sciences for the
+  Interreg Baltic Sea Region project MaDaMe.
+authors:
+  - given-names: Niilo
+    family-names: Nurminen
+    affiliation: "Novia University of Applied Sciences"
+  - given-names: Ahmed
+    family-names: Elhadi
+    affiliation: "Novia University of Applied Sciences"
+  - given-names: Lamin
+    family-names: Jatta
+    affiliation: "Novia University of Applied Sciences; Åbo Akademi University"
+  - given-names: Touko
+    family-names: Herranen
+    affiliation: "Novia University of Applied Sciences"
+  - given-names: Mikael
+    family-names: Manngård
+    affiliation: "Novia University of Applied Sciences"
+repository-code: "https://github.com/Novia-RDI-Seafaring/s100-sampler"
+license: MIT
+keywords:
+  - S-100
+  - S-124
+  - S-125
+  - S-212
+  - SECOM
+  - maritime services
+  - e-navigation
+# TODO: Add version and date-released at the first release tag, ORCIDs if the
+# authors want them, and a preferred-citation once the SoftwareX paper is published.
