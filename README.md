@@ -142,6 +142,10 @@ The `secom` exists to provide the backend behavior expected by the ECS applicati
 
 ---
 
+## Citing and authors
+
+If you use `s100-sampler` in research, please cite it using [CITATION.cff](CITATION.cff) (GitHub shows it as **Cite this repository**). The authors and their contributions are listed in [CONTRIBUTORS.md](CONTRIBUTORS.md).
+
 ## License
 
 `s100-sampler` is released under the [MIT License](LICENSE.txt). Copyright (c) 2024-2026 Novia University of Applied Sciences.
