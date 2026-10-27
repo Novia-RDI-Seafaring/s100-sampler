@@ -240,7 +240,6 @@ void MainWindow::initializeDialogs()
     vtsDialogInstance->scanAndLoad();
     vtsDialogInstance->drawNewMessages();
 
-    vtsDialogInstance->startVTSLoop();
     deactivateVTS();
 
     // getSummaryDisplay = std::make_unique<getSummaryDialog>();
@@ -1470,6 +1469,7 @@ void MainWindow::onServiceChange(const S100Service &service)
         {
             vtsDialogInstance->setService(service);
             auto activated = vtsDialogInstance->activateService();
+            vtsDialogInstance->startVTSLoop();
             m_ui->actionVTSMenu->setEnabled(true);
             m_ui->actionVTSMenu->setToolTip("Opens the VTS dialog");
         }
@@ -1482,6 +1482,7 @@ void MainWindow::onServiceChange(const S100Service &service)
 
 void MainWindow::deactivateVTS()
 {
+    vtsDialogInstance->stopVTSLoop();
     vtsDialogInstance->clearService();
     vtsDialogInstance->deactivateService();
     m_ui->actionVTSMenu->setEnabled(false);

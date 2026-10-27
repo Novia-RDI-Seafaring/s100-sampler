@@ -87,12 +87,8 @@ void NAVWARNDataLayer::scanAndLoad()
     {
         try
         {
-            // Skip if this file is already in the database (avoids reprocessing)
-            if (processedFiles.find(file) != processedFiles.end())
-            {
-                std::cout << "Skipping already processed file: " << file << std::endl;
-                continue;
-            }
+            // Files already in the database are parsed again for display, but not inserted twice
+            const bool alreadyStored = processedFiles.find(file) != processedFiles.end();
 
             // Load the XML document
             pugi::xml_document doc;
@@ -115,7 +111,8 @@ void NAVWARNDataLayer::scanAndLoad()
             }
             std::cout << "We got here??" << '\n';
             // Store the new members in the database
-            insertNWToDatabase(preamble, file);
+            if (!alreadyStored)
+                insertNWToDatabase(preamble, file);
             auto newNWWrap = new NAVWARNWrapper(preamble);
             featureMap[preamble->getGMLID()] = newNWWrap;
         }

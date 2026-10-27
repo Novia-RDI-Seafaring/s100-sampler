@@ -247,7 +247,8 @@ void VTSDataLayer::unsubscribeThread(int threadNumber)
         json payload = {{"subscriptionIdentifier", subscriptionUUID}};
         std::string jsonPayload = payload.dump();
         std::string targetEndpoint = (endpoint.value().toString() + "/v1/subscription").toStdString();
-        auto response = Curler::deleteJson(targetEndpoint, jsonPayload);
+        const auto &cfg = ConfigManager::getInstance().getConfig();
+        auto response = Curler::deleteJson(targetEndpoint, jsonPayload, cfg.cert, cfg.key);
         qDebug() << "Unsubscribed from thread " << threadNumber << ", UUID: " << QString::fromStdString(subscriptionUUID);
     }
     catch (const std::exception &e)
@@ -275,7 +276,7 @@ void VTSDataLayer::subscribe(std::string messageUUID, int threadNumber)
     std::cout << "Response was " << response.statusCode << " " << response.body << '\n';
     if (response.statusCode != 200)
     {
-        std::string errormessage = "Error in subscribing: " + response.statusCode + ' ' + response.body;
+        std::string errormessage = "Error in subscribing: " + std::to_string(response.statusCode) + ' ' + response.body;
         throw std::runtime_error(errormessage);
     }
     // Parse the JSON response
@@ -304,10 +305,9 @@ void VTSDataLayer::postMessage(std::string messageUUID)
     json payload = makeMessagePayload(basedContent, messageUUID, "AAA", "cert", "cert2", "thumbprint", "S212", "dsa", "SECOM", timestamp.toString("ISO"));
     std::cout << "Posting a message " << payload.dump();
 
-    std::string certpath = ConfigManager::getInstance().getConfig().cert.value();
-    std::string keypath = ConfigManager::getInstance().getConfig().key.value();
+    const auto &cfg = ConfigManager::getInstance().getConfig();
 
-    auto response = Curler::postJson(targetEndpoint, payload.dump());
+    auto response = Curler::postJson(targetEndpoint, payload.dump(), cfg.cert, cfg.key);
     std::cout << "Response is " << response.statusCode << " " << response.body << '\n';
 }
 
@@ -322,7 +322,8 @@ void VTSDataLayer::acknowledgeMessage(std::string messageUUID, int ackType)
     json payload = makeAcknowledgementPayload(messageUUID, ackType, "cert", "sign", "ref", "thumbprint", timestamp.toString("ISO"));
     std::string targetEndpoint = (endpoint.value().toString() + "/v1/acknowledgement").toStdString();
 
-    Curler::postJson(targetEndpoint, payload.dump());
+    const auto &cfg = ConfigManager::getInstance().getConfig();
+    Curler::postJson(targetEndpoint, payload.dump(), cfg.cert, cfg.key);
 }
 
 bool VTSDataLayer::syncWithServer()

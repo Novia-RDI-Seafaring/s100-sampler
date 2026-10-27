@@ -4,6 +4,12 @@ api_endpoint = "http://localhost:8443"
 certpath = "../certs/client_cert.pem"
 keypath = "../certs/client_key.pem"
 
+# Verify the server's TLS certificate. Set to false only for test servers
+# whose certificates cannot be verified.
+verify_tls = true
+# Optional PEM file with extra trusted CA certificates, e.g. an MCP root CA.
+ca_bundle = ""
+
 [nmea]
 comport = ""
 baud = 4800

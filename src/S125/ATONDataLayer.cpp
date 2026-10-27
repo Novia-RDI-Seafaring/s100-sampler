@@ -81,11 +81,8 @@ void ATONDataLayer::scanAndLoad()
     {
         try
         {
-            // Skip if this file is already in the database (avoids reprocessing)
-            if (processedFiles.find(file) != processedFiles.end())
-            {
-                continue;
-            }
+            // Files already in the database are parsed again for display, but not inserted twice
+            const bool alreadyStored = processedFiles.find(file) != processedFiles.end();
 
             // Load the XML document
             pugi::xml_document doc;
@@ -103,7 +100,8 @@ void ATONDataLayer::scanAndLoad()
             }
 
             // Store the new members in the database
-            insertATONMembers(members, file);
+            if (!alreadyStored)
+                insertATONMembers(members, file);
             for (auto atonMember : members)
             {
                 auto atonWRAP = new ATONWrapper(atonMember);

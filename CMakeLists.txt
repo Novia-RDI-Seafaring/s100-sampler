@@ -13,11 +13,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Dependencies
-find_package(Qt5 REQUIRED COMPONENTS Widgets Svg)
+find_package(Qt5 REQUIRED COMPONENTS Widgets Svg Concurrent)
 
 # Prefer PATH; also hint vcpkg bin if available
 find_program(XM_LLINT_EXECUTABLE xmllint
-  HINTS "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin"
+  HINTS
+    "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/tools/libxml2"
+    "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin"
 )
 if (NOT XM_LLINT_EXECUTABLE)
   message(FATAL_ERROR "xmllint not found. Install libxml2/xmllint (via system packages or vcpkg) and ensure it's on PATH.")
@@ -103,10 +105,13 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
   SQLiteCpp
   OpenSSL::SSL OpenSSL::Crypto CURL::libcurl
-  Qt5::Widgets Qt5::Svg
+  Qt5::Widgets Qt5::Svg Qt5::Concurrent
   pugixml::pugixml
   nlohmann_json::nlohmann_json
 )
+
+# Validate S-212 messages with the xmllint found above, not one on PATH
+target_compile_definitions(${PROJECT_NAME} PRIVATE XMLLINT_EXECUTABLE="${XM_LLINT_EXECUTABLE}")
 
 find_path(TOMLPLUSPLUS_INCLUDE_DIR NAMES toml++/toml.h toml++/toml.hpp REQUIRED)
 find_path(CPPCODEC_INCLUDE_DIRS NAMES cppcodec/base64_rfc4648.hpp REQUIRED)
@@ -165,8 +170,10 @@ set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "NOVIAECS Application")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "${PROJECT_NAME}")
 set(CPACK_PACKAGE_EXECUTABLES "${PROJECT_NAME}" "${PROJECT_NAME}")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE.txt")
-set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.txt")
+if(EXISTS "${CMAKE_SOURCE_DIR}/LICENSE.txt")
+  set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE.txt")
+endif()
+set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md")
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 

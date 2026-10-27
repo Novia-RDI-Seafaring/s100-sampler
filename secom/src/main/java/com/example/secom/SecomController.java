@@ -70,7 +70,7 @@ public class SecomController {
             byte[] messageBytes = testMessage.getBytes(StandardCharsets.UTF_8);
 
             // Use a predefined algorithm (adjust as needed)
-            DigitalSignatureAlgorithmEnum algorithm = DigitalSignatureAlgorithmEnum.SHA2_256_WITH_ECDSA;
+            DigitalSignatureAlgorithmEnum algorithm = DigitalSignatureAlgorithmEnum.ECDSA;
 
             // If validation passes, proceed
             return secomService.capability();
@@ -199,7 +199,7 @@ public class SecomController {
 
         // Create the transformed response as a map
         Map<String, Object> transformedResponse = new HashMap<>();
-        transformedResponse.put("message", response.getMessage());
+        transformedResponse.put("message", response.getResponseText());
 
         // Only include SECOM_ResponseCode if it's not null
         if (response.getSECOM_ResponseCode() != null) {
@@ -218,7 +218,7 @@ public class SecomController {
     @GetMapping("/v1/ack/getAllTypes")
     public ResponseEntity<Map<String, Integer>> getAllAcknowledgementTypes() {
         Map<String, Integer> ackTypes = acknowledgementService.getAllAckTypes();
-        return ackTypes.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(ackTypes);
+        return ResponseEntity.ok(ackTypes);
     }
 
 

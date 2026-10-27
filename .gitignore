@@ -1,0 +1,32 @@
+# Build output
+build/
+build-*/
+out/
+.vs/
+.vscode/
+CMakeUserPresets.json
+
+# Runtime data created by the client (datasets, SQLite databases, logs)
+data/
+netlogs/
+schemas/S212.xsd
+
+# Certificates, keys and local configuration
+certs/
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+config.local.toml
+
+# Backend build output, local profile and runtime storage
+secom/target/
+secom/config/
+secom/data/
+secom/uploads/
+secom/aton_uploads/
+secom/route_uploads/
+secom/*.db
+secom/*.mv.db
+secom/*.trace.db

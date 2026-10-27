@@ -97,8 +97,9 @@ public:
     /*!
      * \brief Validates the XML output file using xmllint and S-212 schema.
      * \param filePath Path to the XML file to validate.
+     * \return True if xmllint ran and the file is valid.
      */
-    void validateXML(const std::string &filePath);
+    bool validateXML(const std::string &filePath);
 
     std::string filename; ///< Output XML file name (derived from UUID)
     std::string uuid;     ///< UUID for this message

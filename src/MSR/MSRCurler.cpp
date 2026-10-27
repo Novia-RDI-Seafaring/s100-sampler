@@ -28,17 +28,23 @@ json MSRCurler::getServiceList(const S100Provider &provider, int secomVersion = 
         response = Curler::postJson(msrUrl, payload.dump());
         if (response.statusCode != 200)
         {
-            std::string errormessage = "Error in MSR: " + response.statusCode + ' ' + response.body;
+            std::string errormessage = "Error in MSR: " + std::to_string(response.statusCode) + ' ' + response.body;
             throw std::runtime_error(errormessage);
         }
     }
     catch (const std::exception &e)
     {
-        // Log error if needed
+        // An unreachable or failing registry gives an empty result instead of a crash
         std::cerr << "Error fetching MSR list: " << e.what() << std::endl;
+        return json::object();
     }
 
-    json parsed = json::parse(response.body);
+    json parsed = json::parse(response.body, nullptr, false);
+    if (parsed.is_discarded())
+    {
+        std::cerr << "Error fetching MSR list: response is not valid JSON" << std::endl;
+        return json::object();
+    }
 
     if (parsed.contains("searchServiceResult") && parsed["searchServiceResult"].is_array())
     {

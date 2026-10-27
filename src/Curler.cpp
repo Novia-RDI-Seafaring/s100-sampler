@@ -46,8 +46,21 @@ namespace Curler
         curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/8.11.1-DEV");
         curl_easy_setopt(curl, CURLOPT_TIMEOUT, 60);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
-        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+        const auto &cfg = ConfigManager::getInstance().getConfig();
+        if (cfg.verify_tls)
+        {
+            curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
+            curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 2L);
+            // Use the operating system's trusted certificates, plus an optional extra CA bundle
+            curl_easy_setopt(curl, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
+            if (cfg.ca_bundle && !cfg.ca_bundle->empty())
+                curl_easy_setopt(curl, CURLOPT_CAINFO, cfg.ca_bundle->c_str());
+        }
+        else
+        {
+            curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+            curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+        }
         if (certPath && keyPath)
         {
             curl_easy_setopt(curl, CURLOPT_SSLCERT, certPath->c_str());
