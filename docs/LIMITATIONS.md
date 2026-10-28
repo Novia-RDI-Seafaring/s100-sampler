@@ -26,6 +26,8 @@ These matter if you connect to real services.
 | --- | --- | --- |
 | File extensions are case-sensitive | `S100DataLayer::listXMLFilesInFolder` | Rename `.GML`/`.XML` files to lower case |
 | Service registries are hard-coded, and the national test registry was not reachable from a public network in October 2026 | `src/MSR/MSRMainModule.cpp` | Use the MCP Public Demonstrator, or edit the source to add or change a registry |
+| The Windows package cannot send S-212 messages on other PCs: the schema check runs `xmllint` from a path fixed at build time, and the package does not include it | `XMLLINT_EXECUTABLE` in `CMakeLists.txt`, `VTSMessageWrapper::validateXML` | Build from source |
+| The Windows package is not code-signed, so SmartScreen warns and managed PCs may block it | Release package | See [Troubleshooting](TROUBLESHOOTING.md#access-is-denied-when-starting-the-client-from-the-windows-package) |
 | When opened, the MSR dialog lists all stored services, whichever registry is selected in the drop-down | `MSRMainModule::init()` | Click **Load Services** to show only the selected registry's services |
 | The dialog for SECOM Get Summary and dataset subscriptions is disabled | `src/mainUI/MainWindow.cpp` | None |
 | A background thread in the VTS dialog is detached and may outlive it | `src/mainUI/vtsdialog.cpp` | None |

@@ -132,6 +132,24 @@ This is normal: vcpkg builds about 37 packages from source, Qt 5 among them, whi
 
 ## Running the client
 
+### "Windows protected your PC" when starting the client from the Windows package
+
+**Likely** on a first start. **Expected.**
+
+**Cause:** the program is not code-signed, and Windows SmartScreen warns about unsigned programs it has seen on few PCs.
+
+**Fix:** choose **More info → Run anyway**, if you downloaded the package from this repository's **Releases** page.
+
+### `Access is denied` when starting the client from the Windows package
+
+**Possible** on a PC managed by an organisation. **Seen.**
+
+**Symptom:** PowerShell reports `Program 's100-sampler.exe' failed to run: Access is denied`, although the same program built on that PC runs from `build\Release`.
+
+**Cause:** a Microsoft Defender attack-surface-reduction rule set by the organisation, such as **Use advanced protection against ransomware**, blocks programs that are unsigned and new to Windows. Programs built on the PC itself are not affected. **Windows Security → Virus & threat protection → Protection history**, or event 1121 in the Windows Defender event log, shows the block.
+
+**Fix:** ask your IT administrator for an exception, use a PC without that policy, or build the client from source.
+
 ### The window opens and closes immediately
 
 **Rare** with the current source. **Seen** with the original release.
@@ -200,7 +218,7 @@ S-125: only AtoN with a status change are listed, so a valid dataset can still g
 
 **Likely** on a new set-up that uses S-212. **Expected.**
 
-**Cause:** `schemas/S212.xsd` is not in the repository, and a message that fails validation is not sent. See [External requirements](EXTERNAL-REQUIREMENTS.md#s-212-schema).
+**Cause:** `schemas/S212.xsd` is not in the repository, and a message that fails validation is not sent. See [External requirements](EXTERNAL-REQUIREMENTS.md#s-212-schema). The Windows package also lacks `xmllint`, which the check runs from the build PC's vcpkg folder, so on other PCs it cannot send S-212 messages; build from source.
 
 ### "Could not connect to server" or "Empty response received"
 
