@@ -32,7 +32,7 @@ These matter if you connect to real services.
 
 ## Testing
 
-There are no automated tests and no continuous integration. The software was tested by hand during development and in the MaDaMe pilots of 2025, using the chart-enabled NoviaECS version. The release described here has been built and run on Windows; the full S-212 exchange has not been repeated with this release.
+There are no automated tests and no continuous integration. The software was tested by hand during development and in the MaDaMe pilots of 2025, using the chart-enabled NoviaECS version. The release described here has been built and run on Windows, and the client has been checked against a locally running backend (October 2026). The full S-212 exchange with a VTS service has not been repeated with this release.
 
 <!-- TODO: Update this section after the clean build and the reproduction of the paper's examples. Remove items as they are fixed. -->
 

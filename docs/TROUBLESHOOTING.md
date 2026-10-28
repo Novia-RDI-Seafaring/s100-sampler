@@ -202,6 +202,14 @@ S-125: only AtoN with a status change are listed, so a valid dataset can still g
 
 **Cause:** `schemas/S212.xsd` is not in the repository, and a message that fails validation is not sent. See [External requirements](EXTERNAL-REQUIREMENTS.md#s-212-schema).
 
+### `Ping failed for <address>` after **Test Connection**
+
+**Likely** for services you cannot reach. **Seen.**
+
+**Cause:** **Test Connection** in the MSR dialog pings the service's own address (`/v1/ping`). Many registry entries point to test-bed addresses that are private or need an MCP client certificate. Older builds printed `Bruh` instead.
+
+**Fix:** none: the test does not change whether the service is active. To use the service, you need network access to it and, usually, a certificate it accepts.
+
 ### "Could not connect to server" or "Empty response received"
 
 **Likely** when the backend is not running. **Seen.**
