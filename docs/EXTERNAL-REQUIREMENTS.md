@@ -66,7 +66,7 @@ Without the schema, the check fails and the message is not sent. The client call
 
 ## Java 17, Maven and SECOMLib
 
-The backend needs Java 17, Maven, and SECOMLib 0.0.24 (`secom-core-jakarta` and `secom-springboot3`). SECOMLib is open source (<https://github.com/gla-rad/SECOMLib>). Its publisher's Maven repository was unreachable during our set-up, so the [backend guide](SECOM-BACKEND.md) also shows how to build version 0.0.24 from source with a small patch included in this repository.
+The backend needs Java 17, Maven, and SECOMLib 0.0.24 (`secom-core-jakarta` and `secom-springboot3`). SECOMLib is open source (<https://github.com/gla-rad/SECOMLib>). The published 0.0.24 lacks a data-product type the backend uses, so the [backend guide](SECOM-BACKEND.md) shows how to build it from source with a small patch included in this repository.
 
 ## Chart engine, licence and charts
 

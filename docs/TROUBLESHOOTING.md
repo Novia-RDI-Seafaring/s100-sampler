@@ -214,13 +214,43 @@ S-125: only AtoN with a status change are listed, so a valid dataset can still g
 
 ## Building and running the backend
 
+### `mvn` is not recognized as the name of a cmdlet
+
+**Possible**: Maven has no Windows installer and is not on `PATH` unless you add it. **Seen.**
+
+**Cause:** Maven is not installed, or its `bin` folder is not on `PATH`. A copy may already exist, for example one set up by an editor extension under `%USERPROFILE%\.maven`.
+
+**Fix:** add the `bin` folder to `PATH` in the current window, then run `mvn -version`:
+
+```powershell
+$env:Path = "C:\path\to\apache-maven\bin;$env:Path"
+```
+
+To make it permanent, add the folder to `Path` under **Edit the system environment variables → Environment Variables**.
+
 ### Maven cannot resolve `secom-core-jakarta` or `secom-springboot3` 0.0.24
 
-**Likely**, as long as the publisher's repository is unreachable. **Seen.**
+**Likely** on a first set-up. **Expected.**
 
-**Cause:** SECOMLib 0.0.24 is not on Maven Central, and the publisher's repository (`rnavlab.gla-rad.org`) refused connections.
+**Cause:** `secom/pom.xml` uses the patched SECOMLib from your local Maven repository and names no remote repository for it, so it fails until you have built it.
 
-**Fix:** build SECOMLib 0.0.24 from source with the patch in this repository: [SECOM backend, step 1](SECOM-BACKEND.md#1-get-secomlib-0024).
+**Fix:** build SECOMLib 0.0.24 from source with the patch in this repository: [SECOM backend, step 1](SECOM-BACKEND.md#1-build-secomlib-0024).
+
+### `cannot find symbol: variable S201` in `SecomUpload.java`
+
+**Possible** if your local Maven repository holds the published SECOMLib 0.0.24. **Seen.**
+
+**Cause:** the published 0.0.24 lacks the `S201` data-product type; the patch adds it. Revisions of this repository before 28 October 2026 listed the publisher's repository in `secom/pom.xml`, so Maven downloaded the unpatched library whenever that repository was reachable.
+
+**Fix:** do [SECOM backend, step 1](SECOM-BACKEND.md#1-build-secomlib-0024). Its `install` replaces the downloaded copy. Then build the backend again.
+
+### `git apply` reports `can't open patch`
+
+**Possible.** **Seen.**
+
+**Cause:** `git -C C:\tools\SECOMLib` runs Git inside the SECOMLib folder, so a relative path such as `docs\backend\secomlib-0.0.24-fixes.patch` is looked up there.
+
+**Fix:** pass the full path, as in step 1: `$patch = (Resolve-Path docs\backend\secomlib-0.0.24-fixes.patch).Path`, run from the root of this repository.
 
 ### Four SECOMLib tests fail in `SecomPemUtilsTest`
 
@@ -240,10 +270,20 @@ S-125: only AtoN with a status change are listed, so a valid dataset can still g
 
 **Possible**: when several JDKs are installed. **Seen.**
 
-**Fix:** set `JAVA_HOME` to a JDK 17 in the same terminal before running Maven. A newer JDK has not been tested.
+**Cause:** Maven uses the JDK in `JAVA_HOME`, or the first `java` on `PATH` when `JAVA_HOME` is empty. If JDK 17 is not installed, the `Get-ChildItem "C:\Program Files\Microsoft\jdk-17*"` line in the backend guide finds nothing and leaves `JAVA_HOME` empty without an error, so Maven quietly uses another Java.
+
+**Fix:** install JDK 17 (`winget install --id Microsoft.OpenJDK.17 -e`), set `JAVA_HOME` again in the same terminal, and check that `$env:JAVA_HOME` prints a folder before running Maven. A newer JDK has not been tested.
 
 ### Port 8443 is already in use
 
 **Rare.** **Expected.**
 
 **Fix:** stop the other process, or change `server.port` in the backend profile and `api_endpoint` in the client's `config.toml` to match.
+
+### Warning: `File encoding has not been set, using platform encoding windows-1252`
+
+**Likely.** **Seen.** A second warning, `Using platform encoding (Cp1252 actually) to copy filtered resources`, has the same cause.
+
+**Cause:** `secom/pom.xml` does not set a source encoding. The backend sources and resources are plain ASCII, so the encoding does not change the result.
+
+**Fix:** none needed.
