@@ -97,7 +97,7 @@ bool MSRCurler::pingEndpoint(const QUrl endpoint)
     }
     catch (...)
     {
-        std::cerr << "Bruh" << '\n';
+        std::cerr << "Ping failed for " << url << '\n';
     }
     return false;
 }
