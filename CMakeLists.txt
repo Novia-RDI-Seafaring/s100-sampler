@@ -175,7 +175,25 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/LICENSE.txt")
 endif()
 set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md")
 
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+if (WIN32 AND DEFINED VCPKG_INSTALLED_DIR AND DEFINED VCPKG_TARGET_TRIPLET)
+  # Install only the vcpkg DLLs the program loads, not every DLL vcpkg built.
+  # dumpbin lists them; it sits next to the compiler but is not on PATH outside a developer prompt.
+  get_filename_component(_msvc_bin_dir "${CMAKE_CXX_COMPILER}" DIRECTORY)
+  find_program(DUMPBIN_EXECUTABLE dumpbin HINTS "${_msvc_bin_dir}")
+  if (DUMPBIN_EXECUTABLE)
+    set(CMAKE_GET_RUNTIME_DEPENDENCIES_TOOL dumpbin)
+    set(CMAKE_GET_RUNTIME_DEPENDENCIES_COMMAND "${DUMPBIN_EXECUTABLE}")
+  endif()
+  install(TARGETS ${PROJECT_NAME}
+    RUNTIME_DEPENDENCIES
+      DIRECTORIES "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin"
+      PRE_EXCLUDE_REGEXES "api-ms-.*" "ext-ms-.*"
+      POST_EXCLUDE_REGEXES ".*[Ss]ystem32/.*\\.dll"
+    RUNTIME DESTINATION bin
+  )
+else()
+  install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+endif()
 
 # Use windeployqt for Qt runtime deployment on Windows installs
 if (WIN32)
@@ -204,6 +222,14 @@ if (WIN32)
     if (NOT r EQUAL 0)
       message(FATAL_ERROR \"windeployqt failed with code \${r}\")
     endif()
+
+    # The client uses only SVG, PNG and ICO images. These plugins need DLLs
+    # that are not installed, so leave them out rather than ship them broken.
+    file(REMOVE
+      \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/bin/imageformats/qjpeg.dll\"
+      \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/bin/imageformats/qtiff.dll\"
+      \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/bin/imageformats/qwebp.dll\"
+    )
   ")
 endif()
 
@@ -214,14 +240,6 @@ install(DIRECTORY "${CMAKE_SOURCE_DIR}/resources/"
 
 install(FILES "${CMAKE_SOURCE_DIR}/config.toml" DESTINATION .)
 install(FILES "${CMAKE_SOURCE_DIR}/LICENSE.txt" "${CMAKE_SOURCE_DIR}/README.md" DESTINATION .)
-
-# Copy vcpkg runtime DLLs into installer (Windows + vcpkg only)
-if (WIN32 AND DEFINED VCPKG_INSTALLED_DIR AND DEFINED VCPKG_TARGET_TRIPLET)
-  install(DIRECTORY "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/"
-    DESTINATION bin
-    FILES_MATCHING PATTERN "*.dll"
-  )
-endif()
 
 if(WIN32)
   set(CPACK_GENERATOR "ZIP")
