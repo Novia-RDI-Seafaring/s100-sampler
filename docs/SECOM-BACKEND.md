@@ -134,7 +134,7 @@ Invoke-RestMethod http://127.0.0.1:8443/v1/files/all
 
 On a new installation these return `{}` and `[]`, which are valid empty results; PowerShell shows them as a blank line and as nothing.
 
-Steps 1 to 4 were last tested on Windows 11 on 28 October 2026, with Microsoft Build of OpenJDK 17 and Maven 3.9.13.
+Steps 1 to 4 were last tested on Windows 11 on 28 October 2026, with Microsoft Build of OpenJDK 17 and Maven 3.9.13. In the same test the client, with an S-212 service active, polled the running backend without errors; it reported `Could not connect to server` once the backend was stopped, and stopped polling when the service was deactivated.
 
 Then set `api_endpoint = "http://127.0.0.1:8443"` under `[network]` in the client's `config.toml`.
 
