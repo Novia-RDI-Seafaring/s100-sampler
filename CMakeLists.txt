@@ -4,7 +4,7 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
   message(WARNING "CMAKE_TOOLCHAIN_FILE not set. If you use vcpkg, configure with the vcpkg toolchain (via CMakePresets is recommended).")
 endif()
 
-project(s100-sampler VERSION 0.95 LANGUAGES CXX)
+project(s100-sampler VERSION 1.0.0 LANGUAGES CXX)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY AUTOGEN_SOURCE_GROUP "Generated Files")

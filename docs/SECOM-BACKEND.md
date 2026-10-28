@@ -75,7 +75,7 @@ It ends with `BUILD SUCCESS`. If an unpatched 0.0.24 was downloaded into your lo
 mvn -f secom\pom.xml package
 ```
 
-The result is `secom\target\secom-novia-endpoint-0.9.9.jar`. The warnings about platform encoding are harmless: the backend sources and resources are plain ASCII.
+The result is `secom\target\secom-novia-endpoint-1.0.0.jar`. The warnings about platform encoding are harmless: the backend sources and resources are plain ASCII.
 
 ## 3. Configure
 
@@ -111,7 +111,7 @@ Keep `secom/config/`, keystores and the database out of Git.
 
 ```powershell
 Set-Location secom
-& "$env:JAVA_HOME\bin\java.exe" -jar .\target\secom-novia-endpoint-0.9.9.jar --spring.profiles.active=local
+& "$env:JAVA_HOME\bin\java.exe" -jar .\target\secom-novia-endpoint-1.0.0.jar --spring.profiles.active=local
 ```
 
 Wait for `Started SecomNovia` and Tomcat listening on port 8443. Keep this terminal open while you use the client.
