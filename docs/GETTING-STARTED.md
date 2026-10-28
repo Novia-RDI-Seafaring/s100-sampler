@@ -19,6 +19,24 @@ The client has no chart display. The chart engine used in the original NoviaECS 
 | + an MCP client certificate | Discover services in a Maritime Service Registry and download S-124/S-125 datasets from them |
 | + the backend, reachable by a VTS service, and access to that service | Send S-212 traffic-clearance requests and receive replies and acknowledgements |
 
+## Without building: the Windows package
+
+Each release on GitHub has a Windows package, `s100-sampler-<version>-win64.zip`, under **Releases**. It contains the client and every DLL it needs, but not the backend.
+
+1. Download the zip and unpack it into a folder of your own, for example `C:\Users\<you>\s100-sampler`.
+2. Start the client from its `bin` folder, which must be the working directory:
+
+   ```powershell
+   Set-Location C:\Users\<you>\s100-sampler\s100-sampler-1.0.0-win64\bin
+   .\s100-sampler.exe
+   ```
+
+3. The client creates `data\NW`, `data\AtoN` and `data\DB` in the unpacked folder, next to `config.toml`. Continue with [step 3](#3-first-result-s-124-warnings-from-files), using that `data` folder.
+
+The program is not code-signed, so Windows SmartScreen may show **Windows protected your PC**; choose **More info → Run anyway**. On a PC managed by an organisation, a security policy may block it instead; see [Troubleshooting](TROUBLESHOOTING.md#access-is-denied-when-starting-the-client-from-the-windows-package).
+
+The package cannot send S-212 messages on your PC: their schema check runs `xmllint` from the folder where the package was built, and the package does not include it. Build from source for S-212; see [Limitations](LIMITATIONS.md).
+
 ## 1. Build the client on Windows
 
 Windows 11 x64 is the only tested platform. Linux is not yet tested.
@@ -81,6 +99,15 @@ cmake --build build --config Release --parallel 4
 ```
 
 The result is `build\Release\s100-sampler.exe`, with the required DLLs copied next to it.
+
+To make the Windows package described above, run CPack from `build` after a Release build. It uses `cpack.exe` from the same folder as the CMake you used:
+
+```powershell
+Set-Location .\build
+cpack -C Release
+```
+
+The result is `build\s100-sampler-<version>-win64.zip`.
 
 Windows' 260-character path limit breaks the Qt build when the checkout is in a deep folder. Either clone into a short folder such as `C:\src`, or add `-DVCPKG_INSTALL_OPTIONS=--x-buildtrees-root=C:/vcpkg-bt` to the configure command so that vcpkg builds in a short folder. See [Troubleshooting](TROUBLESHOOTING.md).
 
