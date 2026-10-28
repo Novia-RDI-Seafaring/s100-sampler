@@ -40,7 +40,7 @@ A Linux build (for example with Ninja) has not been tested.
 
 The application currently resolves `../config.toml`, `../resources`, `../data`, and `../schemas` relative to its working directory. A build-directory launch is therefore the expected development layout. Network features require user-provided endpoint and certificate values; never commit real private keys or credentials.
 
-The backend uses Maven and Java 17; follow `docs/SECOM-BACKEND.md`. SECOMLib 0.0.24 may have to be built from source with `docs/backend/secomlib-0.0.24-fixes.patch`. Then:
+The backend uses Maven and Java 17; follow `docs/SECOM-BACKEND.md`. SECOMLib 0.0.24 must be built from source with `docs/backend/secomlib-0.0.24-fixes.patch` and installed locally; the published 0.0.24 lacks the `S201` data-product type, and `secom/pom.xml` deliberately lists no SECOMLib repository. Then:
 
 ```powershell
 mvn -f secom/pom.xml package
