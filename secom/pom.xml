@@ -15,16 +15,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>grad</id>
-            <url>https://rnavlab.gla-rad.org/mvn/repository/grad/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
+    <!-- SECOMLib 0.0.24 must be built from source with docs/backend/secomlib-0.0.24-fixes.patch
+         and installed locally; the published 0.0.24 lacks the S201 data-product type. -->
     <dependencies>
         <!-- Spring Boot Starter Web -->
         <dependency>
