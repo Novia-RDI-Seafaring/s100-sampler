@@ -4,7 +4,6 @@
 
 The original version of the application included a licensed chart SDK (Nautilus SDK), which has been removed from this repository. As a result, parts of the source code and UI structure still reflect that original design. Despite this, the current version can be used to download S-100 data and inspect a subset of commonly used data fields.
 
-<!-- TODO: Wording pending the original developer's decision on sharing NoviaECS. -->
 The chart-enabled version used in the MaDaMe pilots, NoviaECS, depends on a commercial chart SDK and licensed chart data, and is not part of this repository. For enquiries, contact the authors.
 
 The project has been built and tested on **Windows**. Linux builds are not yet tested.
