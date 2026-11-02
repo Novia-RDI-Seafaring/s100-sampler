@@ -10,12 +10,12 @@ abstract: >-
   NoviaECS, developed at Novia University of Applied Sciences for the
   Interreg Baltic Sea Region project MaDaMe.
 authors:
-  - given-names: Lamin
-    family-names: Jatta
-    affiliation: "Novia University of Applied Sciences; Åbo Akademi University"
   - given-names: Niilo
     family-names: Nurminen
     affiliation: "Novia University of Applied Sciences"
+  - given-names: Lamin
+    family-names: Jatta
+    affiliation: "Novia University of Applied Sciences; Åbo Akademi University"
   - given-names: Ahmed
     family-names: Elhadi
     affiliation: "Novia University of Applied Sciences"
@@ -25,6 +25,9 @@ authors:
   - given-names: Mikael
     family-names: Manngård
     affiliation: "Novia University of Applied Sciences"
+  - given-names: Andreas
+    family-names: Lundell
+    affiliation: "Åbo Akademi University"
 repository-code: "https://github.com/Novia-RDI-Seafaring/s100-sampler"
 license: MIT
 keywords:

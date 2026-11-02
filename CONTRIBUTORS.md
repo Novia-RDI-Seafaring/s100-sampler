@@ -10,15 +10,16 @@ Roles follow the [CRediT taxonomy](https://credit.niso.org/).
 
 | Author | Affiliation | Contribution |
 | --- | --- | --- |
-| Lamin Jatta | Novia University of Applied Sciences; Åbo Akademi University | Software, Validation, Data curation, Visualization, Writing – original draft, Writing – review & editing |
 | Niilo Nurminen | Novia University of Applied Sciences | Conceptualization, Methodology, Software, Investigation, Data curation, Visualization |
+| Lamin Jatta | Novia University of Applied Sciences; Åbo Akademi University | Software, Validation, Data curation, Visualization, Writing – original draft, Writing – review & editing |
 | Ahmed Elhadi | Novia University of Applied Sciences | Conceptualization, Project administration, Supervision, Writing – original draft, Writing – review & editing |
 | Touko Herranen | Novia University of Applied Sciences | Supervision, Writing – review & editing |
 | Mikael Manngård | Novia University of Applied Sciences | Supervision, Resources, Writing – review & editing |
+| Andreas Lundell | Åbo Akademi University | Supervision, Writing – review & editing |
 
 <!-- TODO: Add Funding acquisition once confirmed with Ahmed Elhadi and Mikael Manngård, and keep this table the same as the CRediT statement in the paper. -->
 
-In brief: Lamin Jatta prepared the open-source release, its documentation and reproducibility. Niilo Nurminen designed and wrote the application. Ahmed Elhadi led Novia's work in MaDaMe and coordinated the development. Touko Herranen and Mikael Manngård supervised the work and reviewed the text.
+In brief: Niilo Nurminen designed and wrote the application. Lamin Jatta prepared the open-source release, its documentation and reproducibility. Ahmed Elhadi led Novia's work in MaDaMe and coordinated the development. Touko Herranen, Mikael Manngård and Andreas Lundell supervised the work and reviewed the text.
 
 ## Other contributors
 
