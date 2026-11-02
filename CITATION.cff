@@ -25,6 +25,9 @@ authors:
   - given-names: Mikael
     family-names: Manngård
     affiliation: "Novia University of Applied Sciences"
+  - given-names: Andreas
+    family-names: Lundell
+    affiliation: "Åbo Akademi University"
 repository-code: "https://github.com/Novia-RDI-Seafaring/s100-sampler"
 license: MIT
 keywords:
