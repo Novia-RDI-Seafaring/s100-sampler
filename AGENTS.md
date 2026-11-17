@@ -64,9 +64,9 @@ Put local settings in the ignored `secom/config/application-local.properties` (s
 
 ## Validation
 
-There is currently no automated C++ test target, no committed Java test suite, and no continuous integration. Validate in proportion to the change:
+CTest covers download filename safety and portable XML validation; see `docs/TESTING.md`. There is no committed Java test suite or continuous integration. Validate in proportion to the change:
 
-- For C++ changes, configure and build the affected CMake target. Run the GUI from the build directory when runtime behavior matters.
+- For C++ changes, configure and build the affected CMake target and run `ctest --test-dir build -C Release --output-on-failure`. Run the GUI from the build directory when runtime behavior matters.
 - For Qt UI changes, verify that AUTOUIC/AUTOMOC completes and manually exercise the affected dialog or action.
 - For parser or persistence changes, use sanitized representative XML/GML and a disposable database; do not overwrite user runtime data.
 - For backend changes, run `mvn -f secom/pom.xml test` (which at minimum compiles the project) and exercise affected HTTP endpoints when configuration is available.

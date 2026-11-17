@@ -79,7 +79,9 @@ namespace Curler
      * \brief Parses and decodes JSON with base64-encoded XML, then writes to files.
      * \param jsonInput Raw JSON input.
      * \param outputFolder Destination folder for output XML files.
-     * \throws std::runtime_error if JSON parsing or file writing fails.
+     * Remote identifiers must use ASCII letters, digits, underscore, hyphen or single dots.
+     * Paths, parent segments, Windows device names and symlink destinations are rejected.
+     * \throws std::runtime_error if an identifier is unsafe, JSON parsing or file writing fails.
      */
     void saveAndDecodeRawJSONToFiles(const std::string jsonInput, const std::string outputFolder);
 

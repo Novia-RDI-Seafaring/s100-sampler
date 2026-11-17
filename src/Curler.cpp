@@ -1,5 +1,6 @@
 #include "Curler.hpp"
 #include <fstream>
+#include <algorithm>
 #include <sstream>
 #include <cppcodec/base64_rfc4648.hpp>
 #include <nlohmann/json.hpp>
@@ -13,6 +14,35 @@
 #include <QUrl>
 using json = nlohmann::json;
 namespace fs = std::filesystem;
+
+namespace
+{
+    std::filesystem::path datasetOutputPath(const std::string &folder, const std::string &identifier)
+    {
+        // Treat remote identifiers as filenames, never as paths (including Windows ADS/device names).
+        if (identifier.empty() || identifier == "." || identifier.find("..") != std::string::npos ||
+            !std::all_of(identifier.begin(), identifier.end(), [](unsigned char c)
+                         { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                                  (c >= '0' && c <= '9') || c == '_' || c == '-' || c == '.'; }))
+            throw std::runtime_error("Dataset identifier is not a safe filename");
+
+        std::string stem = identifier.substr(0, identifier.find('.'));
+        std::transform(stem.begin(), stem.end(), stem.begin(), [](unsigned char c)
+                       { return c >= 'a' && c <= 'z' ? c - 'a' + 'A' : c; });
+        if (stem == "CON" || stem == "PRN" || stem == "AUX" || stem == "NUL" ||
+            (stem.size() == 4 && (stem.substr(0, 3) == "COM" || stem.substr(0, 3) == "LPT") &&
+             stem[3] >= '1' && stem[3] <= '9'))
+            throw std::runtime_error("Dataset identifier is a reserved device name");
+
+        const auto directory = std::filesystem::canonical(folder);
+        const auto output = directory / (identifier + ".xml");
+        if (!std::filesystem::is_directory(directory) ||
+            std::filesystem::is_symlink(std::filesystem::symlink_status(output)) ||
+            std::filesystem::weakly_canonical(output).parent_path() != directory)
+            throw std::runtime_error("Dataset output must stay inside its destination directory");
+        return output;
+    }
+}
 
 namespace Curler
 {
@@ -350,23 +380,14 @@ namespace Curler
 
             // Extract gml:id from XML
             std::string gmlId = extractGmlId(decodedData);
-            std::string outputFilename;
-
-            if (!gmlId.empty())
-            {
-                outputFilename = outputFolder + gmlId;
-            }
-            else
-            {
-                outputFilename = outputFolder + "output_" + std::to_string(index);
-            }
-
-            outputFilename += ".xml";
+            if (gmlId.empty())
+                gmlId = "output_" + std::to_string(index);
+            const auto outputFilename = datasetOutputPath(outputFolder, gmlId);
             // Save decoded data to file
             std::ofstream outFile(outputFilename);
             if (!outFile)
             {
-                throw std::runtime_error("Failed to open output file: " + outputFilename);
+                throw std::runtime_error("Failed to open output file: " + outputFilename.string());
             }
             outFile << decodedData;
             outFile.close();

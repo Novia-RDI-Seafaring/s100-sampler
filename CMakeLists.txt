@@ -110,8 +110,23 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
   nlohmann_json::nlohmann_json
 )
 
-# Validate S-212 messages with the xmllint found above, not one on PATH
-target_compile_definitions(${PROJECT_NAME} PRIVATE XMLLINT_EXECUTABLE="${XM_LLINT_EXECUTABLE}")
+if(MSVC)
+  get_filename_component(_msvc_bin_dir "${CMAKE_CXX_COMPILER}" DIRECTORY)
+  find_program(DUMPBIN_EXECUTABLE dumpbin HINTS "${_msvc_bin_dir}")
+endif()
+
+function(s100_deploy_validator target)
+  add_custom_command(TARGET ${target} POST_BUILD
+    COMMAND "${CMAKE_COMMAND}"
+      "-DS100_XMLLINT=${XM_LLINT_EXECUTABLE}"
+      "-DS100_DESTINATION=$<TARGET_FILE_DIR:${target}>"
+      "-DS100_DEPENDENCY_BIN=${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin"
+      "-DS100_DUMPBIN=${DUMPBIN_EXECUTABLE}"
+      -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/DeployXmlLint.cmake"
+    VERBATIM
+  )
+endfunction()
+s100_deploy_validator(${PROJECT_NAME})
 
 find_path(TOMLPLUSPLUS_INCLUDE_DIR NAMES toml++/toml.h toml++/toml.hpp REQUIRED)
 find_path(CPPCODEC_INCLUDE_DIRS NAMES cppcodec/base64_rfc4648.hpp REQUIRED)
@@ -120,6 +135,28 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   "${TOMLPLUSPLUS_INCLUDE_DIR}"
   "${CPPCODEC_INCLUDE_DIRS}"
 )
+
+include(CTest)
+if(BUILD_TESTING)
+  add_executable(dataset_file_tests tests/dataset_file_tests.cpp src/Curler.cpp)
+  target_include_directories(dataset_file_tests PRIVATE
+    $<TARGET_PROPERTY:${PROJECT_NAME},INCLUDE_DIRECTORIES>
+  )
+  target_link_libraries(dataset_file_tests PRIVATE
+    Qt5::Core CURL::libcurl pugixml::pugixml nlohmann_json::nlohmann_json
+  )
+  add_test(NAME dataset_parent_traversal COMMAND dataset_file_tests parent-traversal)
+  add_test(NAME dataset_unsafe_identifiers COMMAND dataset_file_tests unsafe-identifiers)
+  add_test(NAME dataset_normal_downloads COMMAND dataset_file_tests normal-downloads)
+  add_test(NAME dataset_symlink_destination COMMAND dataset_file_tests symlink-destination)
+  set_tests_properties(dataset_symlink_destination PROPERTIES SKIP_RETURN_CODE 77)
+
+  add_executable(xml_validator_tests tests/xml_validator_tests.cpp src/parser/XMLValidator.cpp)
+  target_include_directories(xml_validator_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/parser")
+  target_link_libraries(xml_validator_tests PRIVATE Qt5::Core)
+  s100_deploy_validator(xml_validator_tests)
+  add_test(NAME xml_validator_portable COMMAND xml_validator_tests)
+endif()
 
 # Default build type for single-config generators
 if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
@@ -163,6 +200,11 @@ endif()
 # CPack Packaging
 # -------------------------------
 include(InstallRequiredSystemLibraries)
+install(CODE [[
+  if(POLICY CMP0207)
+    cmake_policy(SET CMP0207 NEW)
+  endif()
+]])
 
 set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
 set(CPACK_PACKAGE_VENDOR "Novia")
@@ -178,8 +220,6 @@ set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md")
 if (WIN32 AND DEFINED VCPKG_INSTALLED_DIR AND DEFINED VCPKG_TARGET_TRIPLET)
   # Install only the vcpkg DLLs the program loads, not every DLL vcpkg built.
   # dumpbin lists them; it sits next to the compiler but is not on PATH outside a developer prompt.
-  get_filename_component(_msvc_bin_dir "${CMAKE_CXX_COMPILER}" DIRECTORY)
-  find_program(DUMPBIN_EXECUTABLE dumpbin HINTS "${_msvc_bin_dir}")
   if (DUMPBIN_EXECUTABLE)
     set(CMAKE_GET_RUNTIME_DEPENDENCIES_TOOL dumpbin)
     set(CMAKE_GET_RUNTIME_DEPENDENCIES_COMMAND "${DUMPBIN_EXECUTABLE}")
@@ -188,7 +228,7 @@ if (WIN32 AND DEFINED VCPKG_INSTALLED_DIR AND DEFINED VCPKG_TARGET_TRIPLET)
     RUNTIME_DEPENDENCIES
       DIRECTORIES "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin"
       PRE_EXCLUDE_REGEXES "api-ms-.*" "ext-ms-.*"
-      POST_EXCLUDE_REGEXES ".*[Ss]ystem32/.*\\.dll"
+      POST_EXCLUDE_REGEXES ".*[Ss][Yy][Ss][Tt][Ee][Mm]32[/\\\\].*\\.dll"
     RUNTIME DESTINATION bin
   )
 else()
@@ -233,6 +273,12 @@ if (WIN32)
   ")
 endif()
 
+if(WIN32)
+  set(S100_SOURCE_BUNDLE "" CACHE FILEPATH "Verified source archive prepared with tools/package_sources.py")
+  configure_file(cmake/InstallReleaseMaterials.cmake.in InstallReleaseMaterials.cmake @ONLY)
+  install(SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/InstallReleaseMaterials.cmake")
+endif()
+
 install(DIRECTORY "${CMAKE_SOURCE_DIR}/resources/"
   DESTINATION resources
   FILES_MATCHING PATTERN "*.*"
@@ -240,6 +286,9 @@ install(DIRECTORY "${CMAKE_SOURCE_DIR}/resources/"
 
 install(FILES "${CMAKE_SOURCE_DIR}/config.toml" DESTINATION .)
 install(FILES "${CMAKE_SOURCE_DIR}/LICENSE.txt" "${CMAKE_SOURCE_DIR}/README.md" DESTINATION .)
+install(FILES "${CMAKE_SOURCE_DIR}/THIRD-PARTY-NOTICES.md" DESTINATION .)
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/licenses/" DESTINATION licenses)
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/docs/" DESTINATION docs)
 
 if(WIN32)
   set(CPACK_GENERATOR "ZIP")

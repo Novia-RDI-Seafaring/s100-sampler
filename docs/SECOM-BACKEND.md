@@ -61,6 +61,8 @@ The patch makes two changes:
 
 The result is therefore 0.0.24 plus one addition, not a byte-identical copy of the published release.
 
+The upstream SECOMLib code and the included compatibility patch are distributed under **Apache-2.0**, including the copied S201 entry and the Windows test changes. The patch header records its upstream revisions and modifications; the full licence is in [licenses/Apache-2.0.txt](../licenses/Apache-2.0.txt). These terms apply to the patch and upstream code; this project's original desktop and backend code remains MIT-licensed. Preserve the upstream licence and attribution when redistributing a patched SECOMLib build.
+
 Build the two modules and install them into your local Maven repository. This also runs the library's tests:
 
 ```powershell
