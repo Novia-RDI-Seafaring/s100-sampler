@@ -1,3 +1,14 @@
+SECOMLib 0.0.24 compatibility patch
+SPDX-License-Identifier: Apache-2.0
+
+Upstream: https://github.com/gla-rad/SECOMLib
+Base revision: e14ad59bf9385430285be5dadc67355fe64a686f
+S201 entry: upstream commit 8e23e5ab56910110d76adc12e7152ddb3c63b71d
+Modifications: add S201 and normalize PEM test line endings on Windows.
+The upstream context and this compatibility patch are distributed under
+the Apache License, Version 2.0; see ../../licenses/Apache-2.0.txt.
+The remainder of s100-sampler retains its MIT licence.
+
 diff --git a/secom-core-jakarta/src/main/java/org/grad/secom/core/models/enums/SECOM_DataProductType.java b/secom-core-jakarta/src/main/java/org/grad/secom/core/models/enums/SECOM_DataProductType.java
 index a6a34f6..c6001d9 100644
 --- a/secom-core-jakarta/src/main/java/org/grad/secom/core/models/enums/SECOM_DataProductType.java

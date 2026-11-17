@@ -149,4 +149,6 @@ If you use `s100-sampler` in research, please cite it using [CITATION.cff](CITAT
 
 `s100-sampler` is released under the [MIT License](LICENSE.txt). Copyright (c) 2024-2026 Novia University of Applied Sciences.
 
-The licence covers this repository only. The chart SDK, chart data and service credentials described in [External requirements](docs/EXTERNAL-REQUIREMENTS.md) are not part of it and have their own terms.
+The SECOMLib compatibility patch in `docs/backend/` is licensed under Apache-2.0, as described in [the backend guide](docs/SECOM-BACKEND.md#1-build-secomlib-0024); its full licence is in [licenses/Apache-2.0.txt](licenses/Apache-2.0.txt).
+
+The MIT licence covers the project's original code. The chart SDK, chart data and service credentials described in [External requirements](docs/EXTERNAL-REQUIREMENTS.md) are not part of it and have their own terms.
