@@ -18,6 +18,9 @@ The project has been built and tested on **Windows**. Linux builds are not yet t
 | [Configuration](docs/CONFIGURATION.md) | Every `config.toml` setting, and the local files the client creates |
 | [Architecture](docs/ARCHITECTURE.md) | Modules, data flows, and the S-212 exchange |
 | [Limitations and known issues](docs/LIMITATIONS.md) | Scope, security limits, known defects and workarounds |
+| [Testing](docs/TESTING.md) | Focused regression tests and their limits |
+| [Release scope](docs/RELEASE-READINESS.md) | Source visibility, research preview and live VTS release decisions |
+| [Releasing](docs/RELEASING.md) | Windows packaging, third-party notices and corresponding sources |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | Common build and run errors, how likely they are, and how to fix them |
 
 ---
@@ -150,5 +153,7 @@ If you use `s100-sampler` in research, please cite it using [CITATION.cff](CITAT
 `s100-sampler` is released under the [MIT License](LICENSE.txt). Copyright (c) 2024-2026 Novia University of Applied Sciences.
 
 The SECOMLib compatibility patch in `docs/backend/` is licensed under Apache-2.0, as described in [the backend guide](docs/SECOM-BACKEND.md#1-build-secomlib-0024); its full licence is in [licenses/Apache-2.0.txt](licenses/Apache-2.0.txt).
+
+Windows packages include third-party software under its own terms; see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 The MIT licence covers the project's original code. The chart SDK, chart data and service credentials described in [External requirements](docs/EXTERNAL-REQUIREMENTS.md) are not part of it and have their own terms.
