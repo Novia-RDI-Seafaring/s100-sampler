@@ -38,5 +38,7 @@ keywords:
   - SECOM
   - maritime services
   - e-navigation
-# TODO: Add version and date-released at the first release tag, ORCIDs if the
-# authors want them, and a preferred-citation once the SoftwareX paper is published.
+version: 1.0.0
+date-released: 2026-11-17
+# TODO: Add the Zenodo DOI at acceptance, ORCIDs if the authors want them, and
+# a preferred-citation once the SoftwareX paper is published.
