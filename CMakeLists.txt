@@ -121,6 +121,22 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   "${CPPCODEC_INCLUDE_DIRS}"
 )
 
+include(CTest)
+if(BUILD_TESTING)
+  add_executable(dataset_file_tests tests/dataset_file_tests.cpp src/Curler.cpp)
+  target_include_directories(dataset_file_tests PRIVATE
+    $<TARGET_PROPERTY:${PROJECT_NAME},INCLUDE_DIRECTORIES>
+  )
+  target_link_libraries(dataset_file_tests PRIVATE
+    Qt5::Core CURL::libcurl pugixml::pugixml nlohmann_json::nlohmann_json
+  )
+  add_test(NAME dataset_parent_traversal COMMAND dataset_file_tests parent-traversal)
+  add_test(NAME dataset_unsafe_identifiers COMMAND dataset_file_tests unsafe-identifiers)
+  add_test(NAME dataset_normal_downloads COMMAND dataset_file_tests normal-downloads)
+  add_test(NAME dataset_symlink_destination COMMAND dataset_file_tests symlink-destination)
+  set_tests_properties(dataset_symlink_destination PROPERTIES SKIP_RETURN_CODE 77)
+endif()
+
 # Default build type for single-config generators
 if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Build type" FORCE)
