@@ -218,7 +218,7 @@ S-125: only AtoN with a status change are listed, so a valid dataset can still g
 
 **Likely** on a new set-up that uses S-212. **Expected.**
 
-**Cause:** `schemas/S212.xsd` is not in the repository, and a message that fails validation is not sent. See [External requirements](EXTERNAL-REQUIREMENTS.md#s-212-schema). The Windows package also lacks `xmllint`, which the check runs from the build PC's vcpkg folder, so on other PCs it cannot send S-212 messages; build from source.
+**Cause:** `schemas/S212.xsd` is not in the repository, and a message that fails validation is not sent. See [External requirements](EXTERNAL-REQUIREMENTS.md#s-212-schema). New Windows packages include `xmllint` and resolve it beside the client. Keep the bundled tool and DLLs together. Old packages built before this change must be replaced; they still refer to the build PC's vcpkg folder. Schema imports must be available locally because validation uses `--nonet`.
 
 ### `Ping failed for <address>` after **Test Connection**
 

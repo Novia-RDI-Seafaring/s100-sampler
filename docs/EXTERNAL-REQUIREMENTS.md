@@ -60,7 +60,7 @@ xmllint --noout --schema ../schemas/S212.xsd <message file>
 
 `S212.xsd` is not included, because its distribution terms are not yet confirmed. Obtain the schema of the S-212 edition used by your VTS service from the S-212 product specification, and save it as `schemas/S212.xsd` in the repository root.
 
-Without the schema, the check fails and the message is not sent. The client calls the `xmllint` that CMake found during configuration, so it need not be on `PATH`.
+Without the schema, the check fails and the message is not sent. The client first resolves `xmllint` beside its executable, then on `PATH`; no build-machine path is compiled into the validator. Windows builds/packages deploy the tool and its DLLs. XML validation uses `--nonet`, so schema imports must be available locally.
 
 <!-- TODO: Add the official source of the S-212 schema (IALA). -->
 

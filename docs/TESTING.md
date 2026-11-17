@@ -16,6 +16,10 @@ missing-identifier fallback, and existing symlink destinations. The symlink case
 is reported as skipped when the operating system denies creating a file symlink.
 No endpoint, certificate, runtime dataset or application database is used.
 
-These tests cover download filename safety. They do not establish S-100 schema
+The XML-validator test runs the bundled `xmllint` with an empty PATH, filenames
+containing spaces, a synthetic valid/invalid message and a missing schema. It
+checks that schema failures remain blocking after relocating the validator.
+
+These tests cover download filename safety and local XML validation. They do not establish S-100 schema
 conformance or a complete S-212 exchange. The project has no continuous integration
 or committed Java test suite.

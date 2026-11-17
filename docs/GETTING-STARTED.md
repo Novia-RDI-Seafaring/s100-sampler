@@ -35,7 +35,7 @@ Each release on GitHub has a Windows package, `s100-sampler-<version>-win64.zip`
 
 The program is not code-signed, so Windows SmartScreen may show **Windows protected your PC**; choose **More info → Run anyway**. On a PC managed by an organisation, a security policy may block it instead; see [Troubleshooting](TROUBLESHOOTING.md#access-is-denied-when-starting-the-client-from-the-windows-package).
 
-The package cannot send S-212 messages on your PC: their schema check runs `xmllint` from the folder where the package was built, and the package does not include it. Build from source for S-212; see [Limitations](LIMITATIONS.md).
+The Windows package includes `xmllint` and its runtime libraries beside the client. S-212 still requires the matching user-provided schema and backend configuration. Its live exchange remains experimental; see [Limitations](LIMITATIONS.md) and [Release scope](RELEASE-READINESS.md).
 
 ## 1. Build the client on Windows
 
@@ -100,7 +100,7 @@ cmake --build build --config Release --parallel 4
 
 The result is `build\Release\s100-sampler.exe`, with the required DLLs copied next to it.
 
-To make the Windows package described above, run CPack from `build` after a Release build. It uses `cpack.exe` from the same folder as the CMake you used:
+To make the Windows package described above, first prepare the verified corresponding-source archive as described in [Releasing](RELEASING.md). Then run CPack from `build` after a Release build. It uses `cpack.exe` from the same folder as the CMake you used:
 
 ```powershell
 Set-Location .\build
